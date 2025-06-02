@@ -40,6 +40,43 @@ export const submitToDo = (req, res) => {
     }
 }
 
+//* Code Logic to Delete to-do
+export const deleteToDo = (req, res) => {
+    try {
+        //Get id of to-do
+        const { id } = req.params
+        // Get index of task to delete using its id
+        const index = toDo.findIndex(task => task.id === parseInt(id));
+        //Verify that task exists
+        if(index === -1){
+            return res.status(404).json({error: "Task doesn't exist."})
+        }
+        // Delete to-do using .splice()
+        toDo.splice(index, 1);
+        // Reponse message
+        res.status(200).json({message: "Task deleted successfully"});
+    } catch (error) {
+        console.error('Error', error)
+    }
+};
+
+//* Code logic to update to-do
+export const updateToDo = (req, res) => {
+    // Retrieve id and task of task to be updated
+    const {id} = req.params;
+    const {task} = req.body;
+    // Find task with id
+    const taskToUpdate = toDo.find(task => task.id === parseInt(id));
+    //Verify that task exists
+    if(!taskToUpdate){
+        return res.status(404).json({error: "Task doesn't exist"});
+    }
+    // Update task
+    taskToUpdate.task = task;
+    //Send response
+    return res.status(200).json({message: "Task updated successfully", taskToUpdate});
+}
+
 
 
 
