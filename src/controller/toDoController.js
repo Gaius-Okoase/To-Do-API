@@ -62,7 +62,8 @@ export const deleteToDo = (req, res) => {
 
 //* Code logic to update to-do
 export const updateToDo = (req, res) => {
-    // Retrieve id and task of task to be updated
+    try {
+        // Retrieve id and task of task to be updated
     const {id} = req.params;
     const {task} = req.body;
     // Find task with id
@@ -75,6 +76,9 @@ export const updateToDo = (req, res) => {
     taskToUpdate.task = task;
     //Send response
     return res.status(200).json({message: "Task updated successfully", taskToUpdate});
+    } catch (error) {
+        console.error('Error', error);
+    }
 }
 
 
