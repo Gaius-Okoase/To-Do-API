@@ -18,7 +18,8 @@ export const getAllToDo = (req, res) => {
 };
 
 export const submitToDo = (req, res) => {
-    const {task, status} = req.body;
+    try {
+       const {task, status} = req.body;
     
     if(!task) {
         return res.status(400).json({error: "To-Do title is required."});
@@ -33,7 +34,10 @@ export const submitToDo = (req, res) => {
     toDo.push(newToDo);
     res.status(201).json({
         message: "To-Do created successfully."
-    })
+    }) 
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 
