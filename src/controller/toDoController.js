@@ -32,9 +32,9 @@ export const submitToDo = (req, res) => {
     }
 
     toDo.push(newToDo);
-    res.status(201).json({
+    return res.status(201).json({
         message: "To-Do created successfully."
-    }) 
+    }); 
     } catch (error) {
         console.error(error);
     }
@@ -54,7 +54,7 @@ export const deleteToDo = (req, res) => {
         // Delete to-do using .splice()
         toDo.splice(index, 1);
         // Reponse message
-        res.status(200).json({message: "Task deleted successfully"});
+        return res.status(200).json({message: "Task deleted successfully"});
     } catch (error) {
         console.error('Error', error)
     }
